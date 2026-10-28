@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon parcours IA — de zéro aux agents autonomes</title>
+<meta name="description" content="Carnet de route d’un parcours de formation en IA et en automatisation par agents, en 7 étapes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fond: #E9EDE6;
+    --papier: #F5F7F2;
+    --encre: #1C2B36;
+    --doux: #5B6B73;
+    --trait: #C3CCC4;
+    --valide: #2E7D5B;
+    --encours: #C98A00;
+    --reporte: #B5543C;
+    --avenir: #8C989C;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fond: #142028;
+      --papier: #1B2932;
+      --encre: #E6ECE4;
+      --doux: #9AAAB0;
+      --trait: #34444D;
+      --valide: #5CC193;
+      --encours: #F0B53A;
+      --reporte: #E58A72;
+      --avenir: #7B8A90;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--fond);
+    color: var(--encre);
+    font-family: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
+
+  header h1 {
+    font-size: clamp(2.6rem, 8vw, 4.75rem);
+    font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+  }
+  header p {
+    margin-top: 1.5rem;
+    max-width: 34rem;
+    color: var(--doux);
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  .avancement {
+    margin-top: 2.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    font-weight: 600;
+  }
+  .jauge { flex: 1; max-width: 18rem; height: 0.5rem; background: var(--trait); border-radius: 1rem; overflow: hidden; }
+  .jauge span { display: block; height: 100%; width: 14.3%; background: var(--valide); border-radius: 1rem; }
+
+  ol.route { list-style: none; margin-top: 4.5rem; position: relative; }
+  ol.route::before {
+    content: ""; position: absolute; left: 1.1rem; top: 0.6rem; bottom: 0.6rem;
+    width: 3px; background: var(--trait); border-radius: 2px;
+  }
+  .etape { position: relative; padding: 0 0 2.75rem 3.75rem; }
+  .etape:last-child { padding-bottom: 0; }
+  .station {
+    position: absolute; left: 0; top: 0;
+    width: 2.25rem; height: 2.25rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--papier); border: 3px solid var(--avenir);
+    font-weight: 700; font-size: 0.95rem; color: var(--avenir);
+  }
+  .etape h2 { font-size: 1.45rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; padding-top: 0.15rem; }
+  .etape p { margin-top: 0.4rem; color: var(--doux); max-width: 34rem; }
+  .outils { margin-top: 0.6rem; font-size: 0.95rem; font-weight: 500; }
+  .statut {
+    display: inline-block; margin-left: 0.5rem; vertical-align: 0.2em;
+    font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 1rem;
+    border: 1.5px solid currentColor;
+  }
+
+  .valide .station { background: var(--valide); border-color: var(--valide); color: var(--papier); }
+  .valide .statut { color: var(--valide); }
+  .encours .station {
+    border-color: var(--encours); color: var(--encours);
+    box-shadow: 0 0 0 0 var(--encours);
+    animation: pouls 2.4s ease-out infinite;
+  }
+  .encours .statut { color: var(--encours); }
+  .encours h2 { font-size: 1.8rem; }
+  .reporte .station { border-style: dashed; border-color: var(--reporte); color: var(--reporte); }
+  .reporte .statut { color: var(--reporte); }
+  .avenir .statut { color: var(--avenir); }
+  .avenir h2 { color: var(--doux); }
+
+  @keyframes pouls {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--encours) 55%, transparent); }
+    100% { box-shadow: 0 0 0 0.9rem transparent; }
+  }
+  @media (prefers-reduced-motion: reduce) { .encours .station { animation: none; } }
+
+  footer {
+    margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--trait);
+    color: var(--doux); font-size: 0.95rem;
+  }
+  @media (max-width: 30rem) {
+    .page { padding-top: 3.5rem; }
+    .etape { padding-left: 3.25rem; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>De zéro aux agents autonomes</h1>
+    <p>Le carnet de route de ma formation en intelligence artificielle : apprendre les outils un par un, puis les faire travailler ensemble, jusqu’à confier des tâches entières à des agents.</p>
+    <div class="avancement" aria-label="Avancement : 1 étape validée sur 7">
+      <div class="jauge"><span></span></div>
+      1 étape validée sur 7
+    </div>
+  </header>
+
+  <ol class="route">
+    <li class="etape reporte">
+      <div class="station" aria-hidden="true">1</div>
+      <h2>Créer avec l’IA <span class="statut">Reporté</span></h2>
+      <p>Une vidéo de présentation d’un appartement générée à partir de photos, puis un site vitrine haut de gamme pour le bien.</p>
+      <p class="outils">Claude, Kling, Lovable</p>
+    </li>
+    <li class="etape reporte">
+      <div class="station" aria-hidden="true">2</div>
+      <h2>Bien parler à une IA <span class="statut">Reporté</span></h2>
+      <p>Écrire des prompts précis, comparer plusieurs modèles sur la même demande et repérer quand une IA invente.</p>
+      <p class="outils">Claude, ChatGPT, DeepSeek</p>
+    </li>
+    <li class="etape valide">
+      <div class="station" aria-hidden="true">3</div>
+      <h2>S’organiser <span class="statut">Validé</span></h2>
+      <p>Un QG dans Notion : projets, tâches reliées, vues kanban et calendrier, bibliothèque de prompts.</p>
+      <p class="outils">Notion, Notion Calendar</p>
+    </li>
+    <li class="etape encours">
+      <div class="station" aria-hidden="true">4</div>
+      <h2>Sauvegarder et collaborer <span class="statut">En cours</span></h2>
+      <p>Versionner son travail, passer par des branches et des pull requests, et mettre un site en ligne. Cette page en est le résultat.</p>
+      <p class="outils">GitHub, GitHub Pages</p>
+    </li>
+    <li class="etape avenir">
+      <div class="station" aria-hidden="true">5</div>
+      <h2>Connecter les outils <span class="statut">À venir</span></h2>
+      <p>Brancher l’IA sur Notion, l’agenda et GitHub pour qu’elle lise et agisse directement dans les outils.</p>
+    </li>
+    <li class="etape avenir">
+      <div class="station" aria-hidden="true">6</div>
+      <h2>Automatiser <span class="statut">À venir</span></h2>
+      <p>Des scénarios qui se déclenchent seuls : un événement, une IA qui traite, une action en bout de chaîne.</p>
+    </li>
+    <li class="etape avenir">
+      <div class="station" aria-hidden="true">7</div>
+      <h2>Les agents autonomes <span class="statut">À venir</span></h2>
+      <p>Concevoir, sécuriser et superviser des agents qui travaillent seuls, avec une validation humaine sur ce qui compte.</p>
+    </li>
+  </ol>
+
+  <footer>Page mise à jour au fil du parcours.</footer>
+</main>
+</body>
+</html>
